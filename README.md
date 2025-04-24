@@ -305,6 +305,34 @@ The [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
 is a more sophisticated example of the use of streams:
 
 ```scheme
+#lang racket
+
+(define head car)
+
+(define (tail stream) (force (cdr stream)))
+
+(define empty-stream? null?)
+
+(define the-empty-stream '())
+
+(define-syntax cons-stream
+  (syntax-rules ()
+    ((cons-stream x y)
+     (cons x (delay y)))))
+
+(define (stream-section n stream)
+  (cond ((= n 0) '())
+        (else
+          (cons
+            (head stream)
+            (stream-section
+             (- n 1)
+             (tail stream))))))
+
+(define (integers-starting-from n)
+ (cons-stream n
+  (integers-starting-from (+ n 1))))
+
 (define (sieve stream)
    (cons-stream
      (head stream)
