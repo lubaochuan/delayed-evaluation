@@ -110,7 +110,7 @@ d
 `delay` and `force` allow us to postpone evaluation of an expression
 till it is needed. Creating a promise has the effect of "memoizing"
 the body as well as delaying its evaluation. We can use this
-"lazy evaluation to handle infinite lists.
+"lazy evaluation" to handle infinite lists.
 ```scheme
 (define (fib n)
   (printf "fib(~s)\n" n)
@@ -143,8 +143,8 @@ the body as well as delaying its evaluation. We can use this
   (lambda (x)
     (force (cdr x))))
 
-#;(define delayed-list-cdr
-  (compose force cdr))
+;(define delayed-list-cdr
+;  (compose force cdr))
 
 ;(car (delayed-list-cdr del-list))
 ;
@@ -298,8 +298,7 @@ We can define `fibs` by adding `fibs` to its own tail:
       (add-streams (tail fibs) fibs))))
 
 (stream-section 15 fibs)
-; => '(0 1 1 2 3 5 8 13 21 34 55 89 144
- 233 377)
+; => '(0 1 1 2 3 5 8 13 21 34 55 89 144 233 377)
 ```
 
 The [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
